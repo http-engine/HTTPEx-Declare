@@ -45,12 +45,10 @@ my %exports = (
     },
 );
 
-my $exporter = Sub::Exporter::build_exporter({
+Sub::Exporter::setup_exporter({
     exports => \%exports,
     groups  => { default => [':all'] }
 });
-
-sub import { goto $exporter }
 
 1;
 __END__
