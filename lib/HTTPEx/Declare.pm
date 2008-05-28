@@ -1,54 +1,42 @@
 package HTTPEx::Declare;
-
 use strict;
 use warnings;
 our $VERSION = '0.01';
-
-use Sub::Name 'subname';
-use Sub::Exporter;
-
 use HTTP::Engine;
+use Sub::Exporter -setup => {
+    exports => [qw/middlewares interface run/],
+    groups  => { default => [':all'] }
+};
 
 my $interface;
 
-my %exports = (
-    middlewares => sub {
-        subname 'HTTPEx::Declare::middlewares' => sub (@) {
-            HTTP::Engine->load_middlewares( @_ );
-        }
-    },
-    interface => sub {
-        subname 'HTTPEx::Declare::interface' => sub ($$) {
-            $interface = {
-                module => shift,
-                args   => shift,
-            };
-        }
-    },
-    run => sub {
-        subname 'HTTPEx::Declare::run' => sub (&;@) {
-            unless ($interface) {
-                require Carp;
-                Carp::croak 'please define interface previously';
-            }
-            my $request_handler = shift;
-            my $engine = HTTP::Engine->new(
-                interface => {
-                    module          => $interface->{module},
-                    args            => $interface->{args},
-                    request_handler => $request_handler,
-                },
-            );
-            undef $interface;
-            $engine->run(@_);
-        }
-    },
-);
+sub middlewares (@) {
+    HTTP::Engine->load_middlewares(@_);
+}
 
-Sub::Exporter::setup_exporter({
-    exports => \%exports,
-    groups  => { default => [':all'] }
-});
+sub interface($$) {
+    $interface = {
+        module => shift,
+        args   => shift,
+    };
+}
+
+sub run(&;@) {
+    unless ($interface) {
+        require Carp;
+        Carp::croak 'please define interface previously';
+    }
+    my $request_handler = shift;
+    my $engine          = HTTP::Engine->new(
+        interface => {
+            module          => $interface->{module},
+            args            => $interface->{args},
+            request_handler => $request_handler,
+        },
+    );
+    undef $interface;
+    $engine->run(@_);
+}
 
 1;
 __END__
