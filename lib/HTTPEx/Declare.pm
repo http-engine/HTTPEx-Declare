@@ -8,38 +8,34 @@ use Sub::Exporter -setup => {
     groups  => { default => [':all'] }
 };
 
-my $interface;
+my ($module, $args);
 
-sub middlewares (@) {
-    HTTP::Engine->load_middlewares(@_);
-}
+sub middlewares (@)  { HTTP::Engine->load_middlewares(@_) }
 
-sub interface($$) {
-    $interface = {
-        module => shift,
-        args   => shift,
-    };
-}
+sub interface   ($$) { ( $module, $args ) = @_ }
 
 sub run(&;@) {
-    unless ($interface) {
+    unless ($module && $args) {
         require Carp;
         Carp::croak 'please define interface previously';
     }
     my $request_handler = shift;
     my $engine          = HTTP::Engine->new(
         interface => {
-            module          => $interface->{module},
-            args            => $interface->{args},
+            module          => $module,
+            args            => $args,
             request_handler => $request_handler,
         },
     );
-    undef $interface;
+    undef $module;
+    undef $args;
     $engine->run(@_);
 }
 
 1;
 __END__
+
+=for stopwords Tokuhiro Matsuno
 
 =head1 NAME
 
@@ -70,6 +66,8 @@ HTTPEx::Declare is DSL to use L<HTTP::Engine> easily.
 =head1 AUTHOR
 
 Kazuhiro Osawa E<lt>ko@yappo.ne.jpE<gt>
+
+Tokuhiro Matsuno
 
 =head1 SEE ALSO
 
