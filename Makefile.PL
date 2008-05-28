@@ -3,7 +3,6 @@ name 'HTTPEx-Declare';
 all_from 'lib/HTTPEx/Declare.pm';
 
 requires 'HTTP::Engine' => '0.0.8';
-requires 'Sub::Name';
 requires 'Sub::Exporter';
 requires 'Carp';
 
