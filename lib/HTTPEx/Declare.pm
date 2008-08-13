@@ -61,7 +61,7 @@ sub _res {
 1;
 __END__
 
-=for stopwords Tokuhiro Matsuno
+=for stopwords Tokuhiro Matsuno DebugScreen  ModuleReload  middlewares  preload
 
 =head1 NAME
 
