@@ -1,7 +1,7 @@
 package HTTPEx::Declare;
 use strict;
 use warnings;
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 use HTTP::Engine;
 use HTTP::Engine::Response;
 
