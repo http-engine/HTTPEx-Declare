@@ -1,4 +1,7 @@
 Revision history for Perl extension HTTPEx::Declare
 
+
+        - for HTTP::Engine 0.0.13 higher
+
 0.01    2008-05-28T21:24:17+09:00
         - original version

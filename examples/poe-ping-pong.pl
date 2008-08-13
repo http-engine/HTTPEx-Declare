@@ -17,23 +17,23 @@ sub next_uri {
     $uri;
 }
 sub bad_request {
-    my $c = shift;
+    my $req = shift;
     init;
-    my $uri = next_uri($c->req);
-    $c->res->body(sprintf qq{Bad Request!: <a href="%s">%s</a>}, $uri, $uri);
+    my $uri = next_uri($req);
+    res( body => sprintf(qq{Bad Request!: <a href="%s">%s</a>}, $uri, $uri) );
 }
 
 sub handler {
-    my $c = shift;
+    my $req = shift;
     my $port = $flag;
-    return bad_request($c) if $flag eq $c->req->uri->port;
+    return bad_request($req) if $flag eq $req->uri->port;
 
-    $flag = $c->req->uri->port;
+    $flag = $req->uri->port;
     $count++;
 
-    my $uri = next_uri($c->req);
-    $c->res->body(sprintf qq{%s: %s<br /><a href="%s">%s</a>\n}, $flag, $count, $uri, $uri);
+    my $uri = next_uri($req);
     print STDERR "ping-pong: $flag, $count\n";
+    res( body => sprintf(qq{%s: %s<br /><a href="%s">%s</a>\n}, $flag, $count, $uri, $uri) );
 }
 
 interface POE => { port => 1977 };

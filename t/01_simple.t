@@ -2,7 +2,7 @@ use strict;
 use warnings;
 use lib '.';
 use HTTP::Request;
-use HTTPEx::Declare;
+use HTTPEx::Declare -Compat;
 use Test::More tests => 1;
 
 interface Test => {};

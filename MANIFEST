@@ -1,8 +1,6 @@
 Changes
 examples/poe-ping-pong.pl
-inc/Module/AutoInstall.pm
 inc/Module/Install.pm
-inc/Module/Install/AutoInstall.pm
 inc/Module/Install/Base.pm
 inc/Module/Install/Can.pm
 inc/Module/Install/Fetch.pm
@@ -27,4 +25,5 @@ t/00_compile.t
 t/01_simple.t
 t/02_middleware.t
 t/03_undefined_interface.t
+t/04_nocontext.t
 t/DummyMiddlewareWrap.pm

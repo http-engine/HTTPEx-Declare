@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 use lib '.';
-use HTTPEx::Declare;
+use HTTPEx::Declare -Compat;
 use Test::More tests => 2;
 
 middlewares '+t::DummyMiddlewareWrap';
