@@ -1,8 +1,14 @@
 use strict;
 use warnings;
 use lib '.';
+use Test::More;
+
+eval "use HTTP::Engine::Compat;";
+plan skip_all => 'this test requires HTTP::Engine::Compat' if $@;
+plan tests => 2;
+
+eval <<'...';
 use HTTPEx::Declare -Compat;
-use Test::More tests => 2;
 
 middlewares '+t::DummyMiddlewareWrap';
 
@@ -15,3 +21,6 @@ my $response = run {
 our $wrap;
 is $main::wrap, 'ok';
 is $response->content, 'OK!';
+...
+die $@ if $@;
+
