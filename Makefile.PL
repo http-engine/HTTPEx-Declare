@@ -10,7 +10,7 @@ use inc::Module::Install;
 name 'HTTPEx-Declare';
 all_from 'lib/HTTPEx/Declare.pm';
 
-requires 'HTTP::Engine' => '0.0.13';
+requires 'HTTP::Engine' => '0.0.14';
 requires 'Sub::Exporter';
 requires 'Carp';
 
